@@ -1,0 +1,6 @@
+<voice-interaction-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:sessionService="me.subhrajyoti.translate.TranslationSessionService"
+    android:recognitionService="me.subhrajyoti.translate.TranslationRecognitionService"
+    android:settingsActivity="me.subhrajyoti.translate.MainActivity"
+    android:supportsAssist="true"
+    android:supportsLocalInteraction="true" />
