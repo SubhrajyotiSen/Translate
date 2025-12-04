@@ -3,20 +3,22 @@ package me.subhrajyoti.translate
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.widget.Toast
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
 
     private val modelManager = LanguageModelManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        enableEdgeToEdge()
         setContent {
             TranslateApp()
         }
@@ -38,10 +40,13 @@ class MainActivity : AppCompatActivity() {
                     val available = modelManager.getAvailableLanguages()
                     val newLanguages = available.map { code ->
                         val isDownloaded = modelManager.isModelDownloaded(code)
+                        val canDelete =
+                            if (isDownloaded) modelManager.canDeleteModel(code) else false
                         LanguageUiModel(
                             code = code,
                             name = modelManager.getDisplayName(code),
-                            status = if (isDownloaded) ModelStatus.DOWNLOADED else ModelStatus.NOT_DOWNLOADED
+                            status = if (isDownloaded) ModelStatus.DOWNLOADED else ModelStatus.NOT_DOWNLOADED,
+                            canDelete = canDelete
                         )
                     }.sortedBy { it.name }
                     languages = newLanguages
@@ -79,15 +84,15 @@ class MainActivity : AppCompatActivity() {
             },
             onDelete = { code ->
                 scope.launch {
-                    // Optimistic update (optional, but might be risky if delete fails)
-                    languages = languages.map {
-                        if (it.code == code) it.copy(status = ModelStatus.DOWNLOADING) else it // Show spinner while deleting? Or just remove immediately?
-                    }
-                    // Let's just delete and refresh
-                    try {
-                        modelManager.deleteModel(code)
+                    val success = modelManager.deleteModel(code)
+                    if (success) {
                         refreshLanguages()
-                    } catch (e: Exception) {
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Cannot delete this language. It may be pre-installed or required by the system.",
+                            Toast.LENGTH_LONG
+                        ).show()
                         refreshLanguages()
                     }
                 }

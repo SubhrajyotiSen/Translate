@@ -29,9 +29,24 @@ class LanguageModelManager {
         modelManager.download(model, conditions).await()
     }
 
-    suspend fun deleteModel(languageCode: String) {
-        val model = TranslateRemoteModel.Builder(languageCode).build()
-        modelManager.deleteDownloadedModel(model).await()
+    suspend fun deleteModel(languageCode: String): Boolean {
+        return try {
+            val model = TranslateRemoteModel.Builder(languageCode).build()
+            modelManager.deleteDownloadedModel(model).await()
+            true
+        } catch (e: Exception) {
+            // Model might be pre-installed or deletion failed
+            false
+        }
+    }
+
+    suspend fun canDeleteModel(languageCode: String): Boolean {
+        // English is typically pre-installed and cannot be deleted
+        // Also check if model is actually downloaded
+        if (languageCode == TranslateLanguage.ENGLISH) {
+            return false
+        }
+        return isModelDownloaded(languageCode)
     }
 
     fun getDisplayName(languageCode: String): String {

@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,7 +37,8 @@ enum class ModelStatus {
 data class LanguageUiModel(
     val code: String,
     val name: String,
-    val status: ModelStatus
+    val status: ModelStatus,
+    val canDelete: Boolean = true
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,20 +56,17 @@ fun ManageLanguagesScreen(
     onRetry: () -> Unit = {}
 ) {
     Scaffold(
+        contentWindowInsets = WindowInsets.systemBars,
         topBar = {
-            TopAppBar(
-                title = { Text("Manage Languages") },
-                navigationIcon = {
-                    IconButton(onClick = { /* Handle back */ }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
+            CenterAlignedTopAppBar(
+                title = {
+                    Text(
+                        text = stringResource(R.string.app_name),
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                 },
-                actions = {
-                    IconButton(onClick = { /* Handle menu */ }) {
-                        Icon(Icons.Default.MoreVert, contentDescription = "Menu")
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                     titleContentColor = MaterialTheme.colorScheme.onBackground,
                     navigationIconContentColor = MaterialTheme.colorScheme.onBackground,
@@ -229,7 +228,7 @@ fun LanguageItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -239,17 +238,24 @@ fun LanguageItem(
             modifier = Modifier.weight(1f)
         )
 
-        IconButton(onClick = onAction) {
-            when (language.status) {
-                ModelStatus.DOWNLOADED -> {
-                    Icon(
-                        imageVector = Icons.Filled.Delete,
-                        contentDescription = "Delete",
-                        tint = Color.Gray
-                    )
+        when (language.status) {
+            ModelStatus.DOWNLOADED -> {
+                if (language.canDelete) {
+                    IconButton(onClick = onAction) {
+                        Icon(
+                            imageVector = Icons.Filled.Delete,
+                            contentDescription = "Delete",
+                            tint = Color.Gray
+                        )
+                    }
+                } else {
+                    // Show nothing for pre-installed languages
+                    Spacer(modifier = Modifier.size(48.dp))
                 }
+            }
 
-                ModelStatus.DOWNLOADING -> {
+            ModelStatus.DOWNLOADING -> {
+                IconButton(onClick = onAction) {
                     Box(contentAlignment = Alignment.Center) {
                         CircularProgressIndicator(
                             modifier = Modifier.size(40.dp),
@@ -263,8 +269,10 @@ fun LanguageItem(
                         )
                     }
                 }
+            }
 
-                ModelStatus.NOT_DOWNLOADED -> {
+            ModelStatus.NOT_DOWNLOADED -> {
+                IconButton(onClick = onAction) {
                     Icon(
                         imageVector = Icons.Filled.Download,
                         contentDescription = "Download",
@@ -311,11 +319,11 @@ fun PreviewError() {
 @Composable
 fun PreviewContent() {
     val languages = listOf(
-        LanguageUiModel("en", "English (US)", ModelStatus.DOWNLOADED),
-        LanguageUiModel("fr", "French (Français)", ModelStatus.DOWNLOADING),
-        LanguageUiModel("de", "German (Deutsch)", ModelStatus.NOT_DOWNLOADED),
-        LanguageUiModel("it", "Italian (Italiano)", ModelStatus.NOT_DOWNLOADED),
-        LanguageUiModel("ja", "Japanese (日本語)", ModelStatus.NOT_DOWNLOADED)
+        LanguageUiModel("en", "English (US)", ModelStatus.DOWNLOADED, canDelete = false),
+        LanguageUiModel("fr", "French (Français)", ModelStatus.DOWNLOADING, canDelete = true),
+        LanguageUiModel("de", "German (Deutsch)", ModelStatus.NOT_DOWNLOADED, canDelete = true),
+        LanguageUiModel("it", "Italian (Italiano)", ModelStatus.NOT_DOWNLOADED, canDelete = true),
+        LanguageUiModel("ja", "Japanese (日本語)", ModelStatus.NOT_DOWNLOADED, canDelete = true)
     )
     ManageLanguagesScreen(
         languages = languages,
