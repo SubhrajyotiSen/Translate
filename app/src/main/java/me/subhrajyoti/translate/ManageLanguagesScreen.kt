@@ -53,7 +53,8 @@ fun ManageLanguagesScreen(
     onSetDefaultAssistant: () -> Unit,
     isLoading: Boolean,
     error: String? = null,
-    onRetry: () -> Unit = {}
+    onRetry: () -> Unit = {},
+    title: String = "Translate"
 ) {
     Scaffold(
         contentWindowInsets = WindowInsets.systemBars,
@@ -61,7 +62,7 @@ fun ManageLanguagesScreen(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = stringResource(R.string.app_name),
+                        text = title,
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -287,52 +288,66 @@ fun LanguageItem(
 @Preview(showBackground = true, name = "Loading State")
 @Composable
 fun PreviewLoading() {
-    ManageLanguagesScreen(
-        languages = emptyList(),
-        searchQuery = "",
-        onSearchQueryChange = {},
-        onDownload = {},
-        onDelete = {},
-        onCancel = {},
-        onSetDefaultAssistant = {},
-        isLoading = true
-    )
+    MaterialTheme {
+        ManageLanguagesScreen(
+            languages = emptyList(),
+            searchQuery = "",
+            onSearchQueryChange = {},
+            onDownload = {},
+            onDelete = {},
+            onCancel = {},
+            onSetDefaultAssistant = {},
+            isLoading = true,
+            title = "Translate"
+        )
+    }
 }
 
 @Preview(showBackground = true, name = "Error State")
 @Composable
 fun PreviewError() {
-    ManageLanguagesScreen(
-        languages = emptyList(),
-        searchQuery = "",
-        onSearchQueryChange = {},
-        onDownload = {},
-        onDelete = {},
-        onCancel = {},
-        onSetDefaultAssistant = {},
-        isLoading = false,
-        error = "Connection Error"
-    )
+    MaterialTheme {
+        ManageLanguagesScreen(
+            languages = emptyList(),
+            searchQuery = "",
+            onSearchQueryChange = {},
+            onDownload = {},
+            onDelete = {},
+            onCancel = {},
+            onSetDefaultAssistant = {},
+            isLoading = false,
+            error = "Connection Error",
+            title = "Translate"
+        )
+    }
 }
 
 @Preview(showBackground = true, name = "Content State")
 @Composable
 fun PreviewContent() {
-    val languages = listOf(
-        LanguageUiModel("en", "English (US)", ModelStatus.DOWNLOADED, canDelete = false),
-        LanguageUiModel("fr", "French (Français)", ModelStatus.DOWNLOADING, canDelete = true),
-        LanguageUiModel("de", "German (Deutsch)", ModelStatus.NOT_DOWNLOADED, canDelete = true),
-        LanguageUiModel("it", "Italian (Italiano)", ModelStatus.NOT_DOWNLOADED, canDelete = true),
-        LanguageUiModel("ja", "Japanese (日本語)", ModelStatus.NOT_DOWNLOADED, canDelete = true)
-    )
-    ManageLanguagesScreen(
-        languages = languages,
-        searchQuery = "",
-        onSearchQueryChange = {},
-        onDownload = {},
-        onDelete = {},
-        onCancel = {},
-        onSetDefaultAssistant = {},
-        isLoading = false
-    )
+    MaterialTheme {
+        val languages = listOf(
+            LanguageUiModel("en", "English (US)", ModelStatus.DOWNLOADED, canDelete = false),
+            LanguageUiModel("fr", "French (Français)", ModelStatus.DOWNLOADING, canDelete = true),
+            LanguageUiModel("de", "German (Deutsch)", ModelStatus.NOT_DOWNLOADED, canDelete = true),
+            LanguageUiModel(
+                "it",
+                "Italian (Italiano)",
+                ModelStatus.NOT_DOWNLOADED,
+                canDelete = true
+            ),
+            LanguageUiModel("ja", "Japanese (日本語)", ModelStatus.NOT_DOWNLOADED, canDelete = true)
+        )
+        ManageLanguagesScreen(
+            languages = languages,
+            searchQuery = "",
+            onSearchQueryChange = {},
+            onDownload = {},
+            onDelete = {},
+            onCancel = {},
+            onSetDefaultAssistant = {},
+            isLoading = false,
+            title = "Translate"
+        )
+    }
 }

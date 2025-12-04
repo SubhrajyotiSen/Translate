@@ -9,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -67,6 +68,7 @@ class MainActivity : ComponentActivity() {
             languages = languages,
             searchQuery = searchQuery,
             onSearchQueryChange = { searchQuery = it },
+            title = stringResource(R.string.app_name),
             onDownload = { code ->
                 scope.launch {
                     // Optimistic update
