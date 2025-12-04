@@ -29,6 +29,11 @@ class LanguageModelManager {
         modelManager.download(model, conditions).await()
     }
 
+    suspend fun deleteModel(languageCode: String) {
+        val model = TranslateRemoteModel.Builder(languageCode).build()
+        modelManager.deleteDownloadedModel(model).await()
+    }
+
     fun getDisplayName(languageCode: String): String {
         return Locale(languageCode).displayName
     }
