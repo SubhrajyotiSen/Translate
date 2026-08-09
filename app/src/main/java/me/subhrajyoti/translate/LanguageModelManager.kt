@@ -50,6 +50,6 @@ class LanguageModelManager {
     }
 
     fun getDisplayName(languageCode: String): String {
-        return Locale(languageCode).displayName
+        return Locale.Builder().setLanguage(languageCode).build().displayName
     }
 }
