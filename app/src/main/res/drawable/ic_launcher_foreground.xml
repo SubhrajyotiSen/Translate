@@ -1,30 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <path android:pathData="M31,63.928c0,0 6.4,-11 12.1,-13.1c7.2,-2.6 26,-1.4 26,-1.4l38.1,38.1L107,108.928l-32,-1L31,63.928z">
+
+    <!-- Smartphone Outer Bezel (Centered in 66dp Safe Zone) -->
+    <path
+        android:fillColor="#FF1E293B"
+        android:strokeColor="#FF94A3B8"
+        android:strokeWidth="1.2"
+        android:pathData="M41,23 H67 C70.3,23 73,25.7 73,29 V79 C73,82.3 70.3,85 67,85 H41 C37.7,85 35,82.3 35,79 V29 C35,25.7 37.7,23 41,23 Z" />
+
+    <!-- Smartphone Inner Screen -->
+    <path android:pathData="M41.5,25.5 H66.5 C68.7,25.5 70.5,27.3 70.5,29.5 V78.5 C70.5,80.7 68.7,82.5 66.5,82.5 H41.5 C39.3,82.5 37.5,80.7 37.5,78.5 V29.5 C37.5,27.3 39.3,25.5 41.5,25.5 Z">
         <aapt:attr name="android:fillColor">
             <gradient
-                android:endX="85.84757"
-                android:endY="92.4963"
-                android:startX="42.9492"
-                android:startY="49.59793"
+                android:startX="54"
+                android:startY="25.5"
+                android:endX="54"
+                android:endY="82.5"
                 android:type="linear">
-                <item
-                    android:color="#44000000"
-                    android:offset="0.0" />
-                <item
-                    android:color="#00000000"
-                    android:offset="1.0" />
+                <item android:offset="0.0" android:color="#FF26A67E" />
+                <item android:offset="1.0" android:color="#FF095970" />
             </gradient>
         </aapt:attr>
     </path>
+
+    <!-- Inner Screen Capture Corner Brackets -->
     <path
-        android:fillColor="#FFFFFF"
-        android:fillType="nonZero"
-        android:pathData="M65.3,45.828l3.8,-6.6c0.2,-0.4 0.1,-0.9 -0.3,-1.1c-0.4,-0.2 -0.9,-0.1 -1.1,0.3l-3.9,6.7c-6.3,-2.8 -13.4,-2.8 -19.7,0l-3.9,-6.7c-0.2,-0.4 -0.7,-0.5 -1.1,-0.3C38.8,38.328 38.7,38.828 38.9,39.228l3.8,6.6C36.2,49.428 31.7,56.028 31,63.928h46C76.3,56.028 71.8,49.428 65.3,45.828zM43.4,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2c-0.3,-0.7 -0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C45.3,56.528 44.5,57.328 43.4,57.328L43.4,57.328zM64.6,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2s-0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C66.5,56.528 65.6,57.328 64.6,57.328L64.6,57.328z"
-        android:strokeWidth="1"
-        android:strokeColor="#00000000" />
+        android:strokeColor="#9980CBC4"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M40.5,33 V30 C40.5,29.2 41.2,28.5 42,28.5 H45
+                          M63,28.5 H66 C66.8,28.5 67.5,29.2 67.5,30 V33
+                          M40.5,75 V78 C40.5,78.8 41.2,79.5 42,79.5 H45
+                          M63,79.5 H66 C66.8,79.5 67.5,78.8 67.5,78 V75" />
+
+    <!-- Top Curved Translation Arrow -->
+    <path
+        android:fillColor="#FF64FFDA"
+        android:pathData="M51,33.5 C55.5,32.5 60.2,34.2 63.2,37.5 L65.2,35.8 L65.8,41.2 L60.4,40.2 L62.1,38.7 C59.5,35.9 55.4,34.5 51.4,35.4 L51.8,37.2 L47.2,35.2 L50.6,31.8 Z" />
+
+    <!-- Bottom Curved Translation Arrow -->
+    <path
+        android:fillColor="#FF64FFDA"
+        android:pathData="M57,74.5 C52.5,75.5 47.8,73.8 44.8,70.5 L42.8,72.2 L42.2,66.8 L47.6,67.8 L45.9,69.3 C48.5,72.1 52.6,73.5 56.6,72.6 L56.2,70.8 L60.8,72.8 L57.4,76.2 Z" />
+
+    <!-- Right Speech Bubble Drop Shadow -->
+    <path
+        android:fillColor="#33000000"
+        android:pathData="M62,43.5 C70.3,43.5 77,49.8 77,57.5 C77,61.1 75.5,64.4 73.1,66.9 L75.2,72.2 L69.2,69.8 C67,70.9 64.6,71.5 62,71.5 C53.7,71.5 47,65.2 47,57.5 C47,49.8 53.7,43.5 62,43.5 Z" />
+
+    <!-- Right Speech Bubble (Crisp White) -->
+    <path
+        android:fillColor="#FFF8FAFC"
+        android:pathData="M62,42 C70.3,42 77,48.3 77,56 C77,59.6 75.5,62.9 73.1,65.4 L75.2,70.7 L69.2,68.3 C67,69.4 64.6,70 62,70 C53.7,70 47,63.7 47,56 C47,48.3 53.7,42 62,42 Z" />
+
+    <!-- Stylized Hiragana 'あ' Symbol Inside Right Bubble -->
+    <path
+        android:strokeColor="#FF2E1D44"
+        android:strokeWidth="2.0"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M56.5,51.5 H67.5
+                          M61.5,48 V62.5
+                          M65.2,54.2 C64.2,59.5 60.2,63 57.5,61.2 C55.5,59.8 56.8,55.5 61.5,55.2 C66.2,54.9 68.5,57.8 67.2,61.5 C66.4,63.5 64.2,64.5 62.5,64.8" />
+
+    <!-- Left Speech Bubble Drop Shadow -->
+    <path
+        android:fillColor="#40000000"
+        android:pathData="M45,37.5 C53.8,37.5 61,44.2 61,52.5 C61,60.8 53.8,67.5 45,67.5 C42.1,67.5 39.4,66.8 37,65.5 L31.2,67.8 L33.4,62.5 C30.7,59.8 29,56.3 29,52.5 C29,44.2 36.2,37.5 45,37.5 Z" />
+
+    <!-- Left Speech Bubble (Deep Violet-Plum) -->
+    <path android:pathData="M45,36 C53.8,36 61,42.7 61,51 C61,59.3 53.8,66 45,66 C42.1,66 39.4,65.3 37,64 L31.2,66.3 L33.4,61 C30.7,58.3 29,54.8 29,51 C29,42.7 36.2,36 45,36 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="33"
+                android:startY="38"
+                android:endX="57"
+                android:endY="64"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF4C3266" />
+                <item android:offset="1.0" android:color="#FF2D1B42" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Serif 'A' Letter Inside Left Bubble -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M45,42 L38.5,57.5 H36.8 V59 H41.8 V57.5 H40.3 L41.6,54.2 H47.8 L49.1,57.5 H47.6 V59 H53.2 V57.5 H51.5 L45,42 Z M44.7,46.2 L47.1,52.4 H42.3 L44.7,46.2 Z" />
 </vector>
